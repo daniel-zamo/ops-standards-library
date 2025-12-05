@@ -16,6 +16,7 @@ La documentación está organizada por dominios tecnológicos para facilitar la 
 
 | Directorio | Descripción | Tecnologías Principales |
 | :--- | :--- | :--- |
+| **`/_meta`** | "Meta-documentación" del repositorio (documentación sobre cómo documentar) | Gobernanza, guías de estilo, plantillas. |
 | **`/linux`** | Procedimientos y estándares para sistemas basados en Unix/Linux. | Ubuntu, Debian, RHEL, Bash |
 | **`/windows`** | Guías de administración y automatización para ecosistemas Microsoft. | Windows Server, PowerShell, WSL |
 | **`/cloud`** | Arquitectura y gestión de proveedores de nube pública. | Azure, AWS, Google Cloud |
