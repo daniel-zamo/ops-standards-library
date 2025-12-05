@@ -1,12 +1,13 @@
 # ESTÁNDAR DE GOBERNANZA DOCUMENTAL Y NOMENCLATURA
 
+---
 **ESTADO:** Borrador / Uso Interno
-
 **ÚLTIMA ACTUALIZACIÓN:** 2024-11-03
-
 **ALCANCE:** Editores y contribuidores del repositorio `ops-standards-library`.
+---
 
 ## 1. PRINCIPIOS DE DISEÑO
+
 Este repositorio sigue una filosofía de **"Docs as Code"** y estructura jerárquica agnóstica. El objetivo es mantener una base de conocimiento escalable que cumpla con principios básicos de organización alineados a normas de calidad y seguridad (como ISO 27001 para la clasificación de activos).
 
 ## 2. TAXONOMÍA JERÁRQUICA (NOMENCLATURA)
