@@ -3,13 +3,8 @@
 **ESTADO:** Borrador / Uso Interno  
 **ÚLTIMA ACTUALIZACIÓN:** 2024-11-03  
 **ALCANCE:** Editores y contribuidores del repositorio `ops-standards-library`  
-
-**PROYECTO:** Estandarización de Entorno de Desarrollo IaC  
-**CÓDIGO:** SOP-LINUX-ANS-01  
-**FECHA:** 2024-11-03  
-**REVISIÓN:** 1.0
-**AUTOR:** dzamo/Grp Ops  
-**CLASIFICACIÓN:** Interno / Técnico  
+  
+---
 
 ## 1. PRINCIPIOS DE DISEÑO
 
