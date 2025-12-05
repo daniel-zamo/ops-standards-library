@@ -1,9 +1,9 @@
 # ESTÁNDAR DE GOBERNANZA DOCUMENTAL Y NOMENCLATURA
 
----
 **ESTADO:** Borrador / Uso Interno
 **ÚLTIMA ACTUALIZACIÓN:** 2024-11-03
 **ALCANCE:** Editores y contribuidores del repositorio `ops-standards-library`.
+
 ---
 
 ## 1. PRINCIPIOS DE DISEÑO
