@@ -4,12 +4,27 @@
 ![Classification](https://img.shields.io/badge/classification-Internal%20%2F%20Technical-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+Repositorio centralizado de **Procedimientos Operativos Estándar (SOPs)** para el equipo de Operaciones e Infraestructura.
+<!--
 Repositorio centralizado de **Procedimientos Operativos Estándar (SOPs)**, referencias técnicas y guías de arquitectura para el equipo de Operaciones e Infraestructura.
-
+-->
+<!--
 Este repositorio tiene como objetivo estandarizar los flujos de trabajo, garantizar la consistencia en los despliegues de *Infrastructure as Code (IaC)* y servir como fuente única de verdad para la configuración de entornos.
+-->
 
 ---
 
+## 📂 Estructura del Repositorio
+
+| Directorio | Descripción |
+| :--- | :--- |
+| **`/_meta`** | Gobernanza, guías de estilo y templates. |
+| **`/linux`** | Estándares para ecosistemas Unix/Linux. |
+| **`/windows`** | Estándares para ecosistemas Microsoft. |
+| **`/cloud`** | Arquitectura Azure/AWS. |
+
+---
+<!--
 ## 📂 Estructura del Repositorio
 
 La documentación está organizada por dominios tecnológicos para facilitar la navegación y el mantenimiento.
@@ -22,12 +37,13 @@ La documentación está organizada por dominios tecnológicos para facilitar la 
 | **`/cloud`** | Arquitectura y gestión de proveedores de nube pública. | Azure, AWS, Google Cloud |
 
 ---
+-->
 
 ## 📚 Documentación Destacada
 
 ### Linux & Automation
 
-* [**SOP-LINUX-ANS-01**](./linux/SOP-LINUX-ANS-01_setup-ansible-core.md) - Estandarización de Entorno de Desarrollo IaC (Ansible Core + Venv).
+* [**SOP-LINUX-ANS-01**](./linux/SOP-LINUX-ANS-01_ansible-env.md) - Estandarización de Entornos Ansible (Makefile + Venv).
 
 ---
 
@@ -44,4 +60,4 @@ Todos los procedimientos aquí documentados han sido validados en entornos contr
 
 ## ⚖️ Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE](LICENSE) para más detalles.
+Licencia MIT - ver [LICENSE](LICENSE).
