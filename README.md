@@ -44,6 +44,7 @@ La documentación está organizada por dominios tecnológicos para facilitar la 
 ### Linux & Automation
 
 * [**SOP-LINUX-ANS-01**](./linux/SOP-LINUX-ANS-01_ansible-env.md) - Estandarización de Entornos Ansible (Makefile + Venv).
+* [**SOP-CLOUD-AZ-01**](./cloud/azure/SOP-CLOUD-AZ-01_ansible-container-env.md) - Procedimiento para aprovisionar un **Entorno de Ejecución Aislado** para la gestión de recursos en Microsoft Azure mediante Ansible.
 
 ---
 
