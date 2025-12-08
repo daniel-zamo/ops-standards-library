@@ -96,80 +96,112 @@ A continuación se muestra el contenido del script para auditoría rápida sin n
 <br>
 
 ```powershell
-# --- CONFIGURACIÓN DE VARIABLES ---
-# Ajustar estos nombres según el resultado de 'Get-NetAdapter'
-$PublicAdapterName = "Wi-Fi"       # La interfaz que TIENE internet
-$PrivateAdapterName = "Ethernet"   # La interfaz que COMPARTE internet (hacia Victus)
+# ==========================================
+# SOP-WIN-001: Script de Configuración ICS
+# Autor: Daniel Zamo
+# Versión: 1.2 (Fix: Permite adaptadores desconectados)
+# ==========================================
 
-# Configuración de Red Deseada para la LAN interna
+# --- 1. BLOQUE INTERACTIVO Y VALIDACIÓN ---
+Clear-Host
+Write-Host "--- CONFIGURACIÓN DE INTERNET CONNECTION SHARING (ICS) ---" -ForegroundColor Cyan
+
+# Mostrar adaptadores actuales para ayudar al usuario
+Write-Host "`nAdaptadores disponibles en el sistema:" -ForegroundColor Yellow
+Get-NetAdapter | Select-Object Name, Status, InterfaceDescription | Format-Table -AutoSize
+
+# Solicitar nombres (Permite presionar Enter para usar valores por defecto si coinciden)
+$InputPublic = Read-Host "Nombre de la interfaz con INTERNET (WAN) [Default: Wi-Fi]"
+if ([string]::IsNullOrWhiteSpace($InputPublic)) { $PublicAdapterName = "Wi-Fi" } else { $PublicAdapterName = $InputPublic }
+
+$InputPrivate = Read-Host "Nombre de la interfaz para la LAN (Hacia Victus) [Default: Ethernet]"
+if ([string]::IsNullOrWhiteSpace($InputPrivate)) { $PrivateAdapterName = "Ethernet" } else { $PrivateAdapterName = $InputPrivate }
+
+Write-Host "`n--- RESUMEN ---" -ForegroundColor Green
+Write-Host "WAN (Internet): $PublicAdapterName"
+Write-Host "LAN (Gateway):  $PrivateAdapterName"
+Write-Host "IP Objetivo:    10.255.255.1 (Forzada por Registro)"
+Write-Host "-----------------"
+
+# Pausa de seguridad
+Write-Host "Presione cualquier tecla para aplicar la configuración..."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
+# --- 2. CONFIGURACIÓN DEL REGISTRO (IP FIJA) ---
 $TargetIPAddress = "10.255.255.1"
-$TargetSubnetMask = "255.255.255.0"
-
-Write-Host "--- Iniciando Configuración de ICS ---" -ForegroundColor Cyan
-
-# 1. Modificar el Registro para forzar el rango IP deseado
-# Windows usa por defecto 192.168.137.1. Cambiamos esto en SharedAccess.
 $RegPath = "HKLM:\System\CurrentControlSet\Services\SharedAccess\Parameters"
 
 try {
-    Write-Host "Configurando rango IP en el Registro..."
-    # ScopeAddress: La IP del Gateway (este equipo)
+    Write-Host "`n[1/4] Configurando IP $TargetIPAddress en el Registro..."
     New-ItemProperty -Path $RegPath -Name "ScopeAddress" -Value $TargetIPAddress -PropertyType String -Force | Out-Null
-    # StandaloneDhcpAddress: La IP base para el servidor DHCP
     New-ItemProperty -Path $RegPath -Name "StandaloneDhcpAddress" -Value $TargetIPAddress -PropertyType String -Force | Out-Null
-    
-    Write-Host "Registro actualizado correctamente ($TargetIPAddress)." -ForegroundColor Green
+    Write-Host "      -> Registro actualizado." -ForegroundColor Gray
 }
 catch {
-    Write-Error "Error modificando el registro. Asegúrese de correr como Administrador."
-    Break
+    Write-Error "Error modificando el registro. ¿Está ejecutando como Administrador?"
+    Exit
 }
 
-# 2. Instanciar el Gestor de ICS (HNetCfg)
+# --- 3. CONFIGURACIÓN ICS (COM OBJECTS) ---
 try {
+    Write-Host "[2/4] Instanciando gestor de red (HNetCfg)..."
     $m = New-Object -ComObject HNetCfg.HNetShare
 }
 catch {
     Write-Error "No se pudo crear el objeto COM HNetCfg.HNetShare."
-    Break
+    Exit
 }
 
-# 3. Identificar conexiones
-$c = $m.EnumEveryConnection | ? { $m.NetConnectionProps($_).Status -eq '2' } # Status 2 = Conectado
+# --- FIX: OBTENER TODAS LAS CONEXIONES (INCLUIDAS LAS DESCONECTADAS) ---
+# Ya no filtramos por Status -eq '2'. Obtenemos todo.
+$connections = $m.EnumEveryConnection
 
 $publicConfig = $null
 $privateConfig = $null
 
-foreach ($conn in $c) {
+foreach ($conn in $connections) {
     $props = $m.NetConnectionProps($conn)
+    
+    # Comparamos nombres (Case insensitive)
     if ($props.Name -eq $PublicAdapterName) {
         $publicConfig = $m.INetSharingConfigurationForINetConnection($conn)
+        Write-Host "      -> Encontrado Adaptador Público: $($props.Name)" -ForegroundColor Gray
     }
     if ($props.Name -eq $PrivateAdapterName) {
         $privateConfig = $m.INetSharingConfigurationForINetConnection($conn)
+        Write-Host "      -> Encontrado Adaptador Privado: $($props.Name)" -ForegroundColor Gray
     }
 }
 
 if (-not $publicConfig -or -not $privateConfig) {
-    Write-Error "No se encontraron los adaptadores especificados: $PublicAdapterName o $PrivateAdapterName."
-    Break
+    Write-Error "ERROR FATAL: No se encontraron uno o ambos adaptadores con los nombres: '$PublicAdapterName' y '$PrivateAdapterName'."
+    Write-Host "Revise la lista de arriba y asegúrese de escribirlos exactamente igual." -ForegroundColor Red
+    Exit
 }
 
-# 4. Deshabilitar ICS si ya estaba activo (para aplicar cambios de IP limpiamente)
-Write-Host "Reiniciando configuraciones previas..."
-$publicConfig.DisableSharing()
-$privateConfig.DisableSharing()
+# --- 4. APLICAR CAMBIOS ---
+Write-Host "[3/4] Reiniciando estado de compartición..."
+# Deshabilitamos primero para evitar errores si ya estaba activo
+try { $publicConfig.DisableSharing() } catch {}
+try { $privateConfig.DisableSharing() } catch {}
 
-# 5. Habilitar ICS
-# 0 = Public, 1 = Private
-Write-Host "Habilitando ICS en $PublicAdapterName (Público)..."
-$publicConfig.EnableSharing(0)
+Write-Host "[4/4] Habilitando ICS..."
 
-Write-Host "Habilitando ICS en $PrivateAdapterName (Privado)..."
-$privateConfig.EnableSharing(1)
+# 0 = Public (WAN), 1 = Private (LAN)
+try {
+    $publicConfig.EnableSharing(0)
+    Write-Host "      -> Internet habilitado en $PublicAdapterName" -ForegroundColor Green
+    
+    $privateConfig.EnableSharing(1)
+    Write-Host "      -> Gateway habilitado en $PrivateAdapterName" -ForegroundColor Green
+}
+catch {
+    Write-Error "Hubo un error al activar ICS. A veces Windows requiere un reinicio si el servicio SharedAccess está bloqueado."
+    Write-Error $_.Exception.Message
+}
 
-Write-Host "--- Configuración Completada ---" -ForegroundColor Cyan
-Write-Host "Por favor, reinicie el equipo o el servicio SharedAccess si la IP no cambia inmediatamente."
+Write-Host "`n--- CONFIGURACIÓN COMPLETADA ---" -ForegroundColor Cyan
+Write-Host "NOTA: Conecte el cable a 'Victus' ahora. Windows asignará la IP automáticamente."
 ```
 
 </details>
