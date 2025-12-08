@@ -70,9 +70,30 @@ graph TD
 
 La configuración de ICS mediante CLI en Windows requiere el uso de objetos COM (`HNetCfg.HNetShare`), ya que no existen cmdlets nativos directos para esta función específica. Además, para personalizar la IP, se requiere manipulación del Registro de Windows.
 
-### 4.1 Script de Automatización (PowerShell)
+## 4.1 Ejecución del Script de Automatización
 
-Guarde el siguiente bloque como `Enable-CustomICS.ps1` o ejecute directamente en la terminal.
+Este procedimiento utiliza un script de PowerShell desarrollado para configurar los objetos COM y el Registro de Windows automáticamente.
+
+1. El script se encuentra disponible en este repositorio bajo en la ruta [./scripts/Enable-CustomICS.ps1](./scripts/Enable-CustomICS.ps1).
+2. Descargue o ubique el archivo en su entorno local.
+3. Ejecute el siguiente comando en PowerShell como Administrador:
+
+```powershell
+# Permitir ejecución de scripts (si está restringido)
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+
+# Ejecutar el script
+.\scripts\Enable-CustomICS.ps1
+```
+
+### 4.2 Código Fuente de Referencia
+
+A continuación se muestra el contenido del script para auditoría rápida sin necesidad de navegar a la carpeta de scripts.
+
+<details>
+  <summary><strong>Clic aquí para desplegar/ver el código fuente completo (Enable-CustomICS.ps1)</strong></summary>
+
+<br>
 
 ```powershell
 # --- CONFIGURACIÓN DE VARIABLES ---
@@ -150,6 +171,8 @@ $privateConfig.EnableSharing(1)
 Write-Host "--- Configuración Completada ---" -ForegroundColor Cyan
 Write-Host "Por favor, reinicie el equipo o el servicio SharedAccess si la IP no cambia inmediatamente."
 ```
+
+</details>
 
 ### 4.2 Verificación
 
