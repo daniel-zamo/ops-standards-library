@@ -50,6 +50,7 @@ La documentación está organizada por dominios tecnológicos para facilitar la 
 ### Windows & Cloud Infrastructure
 
 * [**SOP-CLOUD-AZ-00**](./cloud/azure/SOP-CLOUD-AZ-00_windows-mgmt-station.md) - Estandarización de la configuración de estaciones de trabajo basadas en Windows para Azure.
+* []() - Estandarización de la configuración del subsistema Linux (WSL2) dentro de las estaciones de trabajo Windows que define el método oficial para instalar/configurar **Azure CLI**
 * [**SOP-WIN-PS-01**](./windows/SOP-WIN-PS-01_ics-configuration.md) - Configuración automatizada de **Internet Connection Sharing (ICS)** y enrutamiento NAT con direccionamiento IP personalizado.
 
 ---
