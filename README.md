@@ -18,12 +18,13 @@ Este repositorio tiene como objetivo estandarizar los flujos de trabajo, garanti
 
 | Directorio | Descripción |
 | :--- | :--- |
-| **`/_meta`** | Gobernanza, guías de estilo y templates. |
+| **`/_meta`** | Gobernanza, **Guía de Contribución**, y templates. |
 | **`/linux`** | Estándares para ecosistemas Unix/Linux. |
 | **`/windows`** | Estándares para ecosistemas Microsoft. |
 | **`/cloud`** | Arquitectura Azure/AWS. |
 
 ---
+
 <!--
 ## 📂 Estructura del Repositorio
 
