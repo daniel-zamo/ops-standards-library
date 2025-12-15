@@ -6,7 +6,7 @@
 # Fecha: $(date)
 
 # Configuración personalizable
-OUTPUT_FILE="filesystem_report.md"
+OUTPUT_FILE="$(date +%F)_filesystem_report.md"
 INCLUDE_EXTENSIONS=("md" "ps1")      # Extensiones a incluir en el reporte
 EXCLUDE_NAMES=("LICENSE")            # Nombres de archivos a excluir (sin extensión)
 EXCLUDE_DIRS=(".git" "zz-drafts" "my-scripts")    # Directorios a excluir completamente

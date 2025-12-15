@@ -45,13 +45,14 @@ La documentación está organizada por dominios tecnológicos para facilitar la 
 ### Linux & Automation
 
 * [**SOP-LINUX-ANS-01**](./linux/SOP-LINUX-ANS-01_ansible-env.md) - Estandarización de Entornos Ansible (Makefile + Venv).
-* [**SOP-CLOUD-AZ-01**](./cloud/azure/SOP-CLOUD-AZ-01_ansible-container-env.md) - Procedimiento para aprovisionar un **Entorno de Ejecución Aislado** para la gestión de recursos en Microsoft Azure mediante Ansible.
+* [**SOP-LINUX-NM-01**](./linux/SOP-LINUX-NM-01_bridge-vlan-config.md) - Configuración de Networking avanzado (VLANs + KVM Bridges) con NetworkManager.
 
 ### Windows & Cloud Infrastructure
 
 * [**SOP-CLOUD-AZ-00**](./cloud/azure/SOP-CLOUD-AZ-00_windows-mgmt-station.md) - Estandarización de la configuración de estaciones de trabajo basadas en Windows para Azure.
 * [**SOP-WIN-PS-01**](./windows/SOP-WIN-PS-01_ics-configuration.md) - Configuración automatizada de **Internet Connection Sharing (ICS)** y enrutamiento NAT con direccionamiento IP personalizado.
-* [SOP-CLOUD-AZ-02](cloud/azure/SOP-CLOUD-AZ-02_wsl-engineering-station.md) - Estandarización de la configuración del subsistema Linux (WSL2) dentro de las estaciones de trabajo Windows que define el método oficial para instalar/configurar **Azure CLI**
+* [**SOP-CLOUD-AZ-02**](cloud/azure/SOP-CLOUD-AZ-02_wsl-engineering-station.md) - Estandarización de la configuración del subsistema Linux (WSL2) dentro de las estaciones de trabajo Windows que define el método oficial para instalar/configurar **Azure CLI**.
+* [**SOP-CLOUD-AZ-01**](./cloud/azure/SOP-CLOUD-AZ-01_ansible-container-env.md) - Procedimiento para aprovisionar un **Entorno de Ejecución Aislado** para la gestión de recursos en Microsoft Azure mediante Ansible.
 
 ---
 
