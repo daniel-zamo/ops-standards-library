@@ -5,6 +5,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 Repositorio centralizado de **Procedimientos Operativos Estándar (SOPs)** para el equipo de Operaciones e Infraestructura.
+
 <!--
 Repositorio centralizado de **Procedimientos Operativos Estándar (SOPs)**, referencias técnicas y guías de arquitectura para el equipo de Operaciones e Infraestructura.
 -->
@@ -25,21 +26,6 @@ Este repositorio tiene como objetivo estandarizar los flujos de trabajo, garanti
 
 ---
 
-<!--
-## 📂 Estructura del Repositorio
-
-La documentación está organizada por dominios tecnológicos para facilitar la navegación y el mantenimiento.
-
-| Directorio | Descripción | Tecnologías Principales |
-| :--- | :--- | :--- |
-| **`/_meta`** | "Meta-documentación" del repositorio (documentación sobre cómo documentar) | Gobernanza, guías de estilo, plantillas. |
-| **`/linux`** | Procedimientos y estándares para sistemas basados en Unix/Linux. | Ubuntu, Debian, RHEL, Bash |
-| **`/windows`** | Guías de administración y automatización para ecosistemas Microsoft. | Windows Server, PowerShell, WSL |
-| **`/cloud`** | Arquitectura y gestión de proveedores de nube pública. | Azure, AWS, Google Cloud |
-
----
--->
-
 ## 📚 Documentación Destacada
 
 ### Linux & Automation
@@ -50,15 +36,17 @@ La documentación está organizada por dominios tecnológicos para facilitar la 
 ### Windows & Cloud Infrastructure
 
 * [**SOP-CLOUD-AZ-00**](./cloud/azure/SOP-CLOUD-AZ-00_windows-mgmt-station.md) - Estandarización de la configuración de estaciones de trabajo basadas en Windows para Azure.
-* [**SOP-WIN-PS-01**](./windows/SOP-WIN-PS-01_ics-configuration.md) - Configuración automatizada de **Internet Connection Sharing (ICS)** y enrutamiento NAT con direccionamiento IP personalizado.
-* [**SOP-CLOUD-AZ-02**](cloud/azure/SOP-CLOUD-AZ-02_wsl-engineering-station.md) - Estandarización de la configuración del subsistema Linux (WSL2) dentro de las estaciones de trabajo Windows que define el método oficial para instalar/configurar **Azure CLI**.
 * [**SOP-CLOUD-AZ-01**](./cloud/azure/SOP-CLOUD-AZ-01_ansible-container-env.md) - Procedimiento para aprovisionar un **Entorno de Ejecución Aislado** para la gestión de recursos en Microsoft Azure mediante Ansible.
+* [**SOP-CLOUD-AZ-02**](./cloud/azure/SOP-CLOUD-AZ-02_wsl-engineering-station.md) - Estandarización de la configuración del subsistema Linux (WSL2) y método oficial de instalación de **Azure CLI**.
+* [**SOP-CLOUD-AZ-03**](./cloud/azure/SOP-CLOUD-AZ-03_ai-exam-processor.md) - Pipeline de **AI-Ops** para el procesamiento de exámenes mediante IA Multimodal (n8n + Gemini 1.5 Flash).
+* [**SOP-WIN-PS-01**](./windows/SOP-WIN-PS-01_ics-configuration.md) - Configuración automatizada de **Internet Connection Sharing (ICS)** y enrutamiento NAT con direccionamiento IP personalizado.
 
 ---
 
 ## 🚀 Uso y Contribución
 
 Este repositorio sigue una política estricta de **"Docs as Code"**.
+
 Todos los procedimientos aquí documentados han sido validados en entornos controlados.
 
 1. **Consulta:** Navegue por las carpetas de dominio para encontrar el SOP requerido.
